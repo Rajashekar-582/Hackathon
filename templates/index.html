@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Encryption and Tokenization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #141E30, #243B55);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #fff;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            flex: 1 1 300px;
+            animation: slideIn 1s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: #00b4db;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #0083b0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #21d4fd, #b721ff);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-animation div {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: move 10s infinite;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            50% {
+                transform: translateY(-100vh) translateX(50vw) scale(1.5);
+            }
+            100% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+        }
+
+        .background-animation div:nth-child(1) {
+            background: rgba(255, 69, 58, 0.5);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .background-animation div:nth-child(2) {
+            background: rgba(255, 195, 0, 0.5);
+            top: 30%;
+            left: 40%;
+            animation-delay: 2s;
+        }
+
+        .background-animation div:nth-child(3) {
+            background: rgba(52, 199, 89, 0.5);
+            top: 50%;
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        .background-animation div:nth-child(4) {
+            background: rgba(0, 122, 255, 0.5);
+            top: 70%;
+            left: 80%;
+            animation-delay: 6s;
+        }
+
+        .background-animation div:nth-child(5) {
+            background: rgba(88, 86, 214, 0.5);
+            top: 90%;
+            left: 10%;
+            animation-delay: 8s;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            input[type="file"] {
+                padding: 10px;
+            }
+
+            button {
+                padding: 10px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <h1>Data Encryption and Decryption</h1>
+    <marquee direction="right"><h4><b><i>CRYPTO KNIGHTS</i></b></h4></marquee>
+    <div class="form-container">
+        <form action="/tokenize" method="post" enctype="multipart/form-data">
+            <h2>Tokenize Data</h2>
+            <input type="file" name="file" required>
+            <button type="submit">Tokenize</button>
+        </form>
+        <form action="/detokenize" method="post" enctype="multipart/form-data">
+            <h2>Detokenize Data</h2>
+            <input type="file" name="file" required>
+            <button type="submit">Detokenize</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <form action="/encrypt_backup" method="post" enctype="multipart/form-data">
+            <h2>Encrypt and Backup File</h2>
+            <input type="file" name="file" required>
+            <button type="submit">Encrypt and Backup</button>
+        </form>
+        <form action="/decrypt_recover" method="post" enctype="multipart/form-data">
+            <h2>Decrypt and Recover File</h2>
+            <input type="file" name="file" required>
+            <button type="submit">Decrypt and Recover</button>
+        </form>
+    </div>
+</body>
+</html>
