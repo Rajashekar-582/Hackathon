@@ -81,9 +81,8 @@ def tokenize():
 
         # List of regex patterns to match sensitive columns
         patterns = [
-            re.compile(r'email', re.IGNORECASE),
+           
             re.compile(r'aadhaar|aadhar', re.IGNORECASE),
-            re.compile(r'phone', re.IGNORECASE),
             re.compile(r'pan', re.IGNORECASE)
         ]
 
@@ -106,10 +105,10 @@ def tokenize():
         # Save the tokenized DataFrame to a CSV file
         df.to_csv('tokenized.csv', index=False)
 
-        return send_file('tokenized.csv',as_attachment=True)
+        return send_file('tokenized.csv',as_attachment=True) and render_template('/success.html')
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}) and render_template('/fail.html'), 500
 
 @app.route('/encrypt_backup', methods=['POST'])
 def encrypt_backup():
@@ -156,11 +155,11 @@ def encrypt_backup():
 
         os.remove('temp_tokenized_file.csv')
 
-        return "Backup  encrypted successfully"
+        return "Backup  encrypted successfully"  and render_template('/encrypt.html')
 
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)})  and render_template('/fail.html'), 500
 
 @app.route('/decrypt_recover', methods=['POST'])
 def decrypt_recover():
@@ -189,10 +188,10 @@ def decrypt_recover():
 
         os.remove('temp_encrypted_file.csv')
 
-        return send_file(recovered_file,as_attachment=True)
+        return send_file(recovered_file,as_attachment=True) and render_template('/decrypt.html')
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)})   and render_template('/fail.html'), 500
 
 @app.route('/detokenize', methods=['POST'])
 def detokenize():
@@ -208,9 +207,7 @@ def detokenize():
 
         # List of regex patterns to match sensitive columns
         patterns = [
-            re.compile(r'email', re.IGNORECASE),
             re.compile(r'aadhaar|aadhar', re.IGNORECASE),
-            re.compile(r'phone', re.IGNORECASE),
             re.compile(r'pan', re.IGNORECASE)
         ]
 
@@ -222,10 +219,10 @@ def detokenize():
         output_file_path = 'detokenized.csv'
         df.to_csv(output_file_path, index=False)
 
-        return send_file(output_file_path, as_attachment=True)
+        return send_file(output_file_path, as_attachment=True) and render_template('/detok.html')
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)})   and render_template('/fail.html'), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
